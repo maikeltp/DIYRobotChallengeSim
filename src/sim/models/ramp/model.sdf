@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<sdf version="1.6">
+  <model name="ramp">
+    <static>true</static>
+    <link name="ramp_link">
+      <visual name="body_visual">
+      	<geometry>
+          <mesh><uri>meshes/ramp.dae</uri></mesh>
+        </geometry>
+      </visual>
+      <collision name="body_collision">
+      	<geometry>
+          <mesh><uri>meshes/ramp.dae</uri></mesh>
+        </geometry>
+      </collision>
+    </link>
+  </model>
+</sdf>

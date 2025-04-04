@@ -1,0 +1,160 @@
+<?xml version="1.0"?>
+<sdf version="1.6">
+    <model name="start_signal">
+        <static>false</static>
+        <pose>10 12.33 0.630 0 0 -1.57</pose>
+        <link name="green_signal_link">
+            <pose>0.1 -0.01 0.509 1.57 0 0</pose>
+            <collision name="collision">
+                <geometry>
+                    <cylinder>
+                        <radius>0.102</radius>
+                        <length>0.01</length>
+                    </cylinder>
+                </geometry>
+            </collision>
+            <visual name="visual">
+                <geometry>
+                    <cylinder>
+                        <radius>0.102</radius>
+                        <length>0.01</length>
+                    </cylinder>
+                </geometry>
+                <material>
+                    <ambient>0.376 0.631 0.349 1</ambient>
+                    <diffuse>0.376 0.631 0.349 1</diffuse>
+                    <specular>0.1 0.1 0.1 1</specular>
+                    <emissive>0 0 0 1</emissive>
+                </material>
+            </visual>
+        </link>
+        <link name="red_signal_link">
+            <pose>0.481 -0.01 0.203 1.57 0 0</pose>
+            <collision name="collision">
+                <geometry>
+                    <cylinder>
+                        <radius>0.102</radius>
+                        <length>0.01</length>
+                    </cylinder>
+                </geometry>
+            </collision>
+            <visual name="visual">
+                <geometry>
+                    <cylinder>
+                        <radius>0.102</radius>
+                        <length>0.01</length>
+                    </cylinder>
+                </geometry>
+                <material>
+                    <ambient>0.929 0.110 0.141 1.0</ambient>
+                    <diffuse>0.929 0.110 0.141 1.0</diffuse>
+                    <specular>0.1 0.1 0.1 1.0</specular>
+                    <emissive>0 0 0 1.0</emissive>
+                </material>
+            </visual>
+        </link>
+        <link name="base_link">
+            <collision name="collision">
+                <geometry>
+                    <box>
+                        <size>0.559 0.01 1.260</size>
+                    </box>
+                </geometry>
+            </collision>
+            <visual name="visual">
+                <geometry>
+                    <box>
+                        <size>0.559 0.01 1.260</size>
+                    </box>
+                </geometry>
+                <material>
+                    <script>
+                        <uri>file://media/materials/scripts/gazebo.material</uri>
+                        <name>Gazebo/Gray</name>
+                    </script>
+                </material>
+            </visual>
+        </link>
+        <link name="green_arm_link">
+            <pose>0.1 -0.01 0.356 0 1.57 0</pose>
+            <collision name="collision">
+                <geometry>
+                    <box>
+                        <size>0.305 0.01 0.102</size>
+                    </box>
+                </geometry>
+            </collision>
+            <visual name="visual">
+                <geometry>
+                    <box>
+                        <size>0.305 0.01 0.102</size>
+                    </box>
+                </geometry>
+                <material>
+                    <ambient>0.376 0.631 0.349 1</ambient>
+                    <diffuse>0.376 0.631 0.349 1</diffuse>
+                    <specular>0.1 0.1 0.1 1</specular>
+                    <emissive>0 0 0 1</emissive>
+                </material>
+            </visual>
+        </link>
+        <link name="red_arm_link">
+            <pose>0.252 -0.01 0.203 0 0 0</pose>
+            <collision name="collision">
+                <geometry>
+                    <box>
+                        <size>0.305 0.01 0.102</size>
+                    </box>
+                </geometry>
+            </collision>
+            <visual name="visual">
+                <geometry>
+                    <box>
+                        <size>0.305 0.01 0.102</size>
+                    </box>
+                </geometry>
+                <material>
+                    <ambient>0.929 0.110 0.141 1.0</ambient>
+                    <diffuse>0.929 0.110 0.141 1.0</diffuse>
+                    <specular>0.1 0.1 0.1 1.0</specular>
+                    <emissive>0 0 0 1.0</emissive>
+                </material>
+            </visual>
+        </link>
+        <joint name="red_signal_arm_joint" type="fixed">
+            <parent>red_arm_link</parent>
+            <child>red_signal_link</child>
+            <pose>0 0 0 0 0 0</pose>
+        </joint>
+        <joint name="green_signal_arm_joint" type="fixed">
+            <parent>green_arm_link</parent>
+            <child>green_signal_link</child>
+            <pose>0 0 0 0 0 0</pose>
+        </joint>
+        <joint name="arms_joint" type="fixed">
+            <parent>green_arm_link</parent>
+            <child>red_arm_link</child>
+            <pose>-0.152 0 0 0 0 0</pose>
+        </joint>
+        <joint name="revolute_joint" type="revolute">
+            <parent>base_link</parent>
+            <child>green_arm_link</child>
+            <!-- <pose>0.2 0.1 0 0 0 0</pose> -->
+            <pose>0.152 0 0 0 0 1.57</pose>
+            <axis>
+                <xyz>1 0 0</xyz>
+                <limit>
+                    <lower>-1.57</lower>
+                    <upper>1.57</upper>
+                    <effort>10000</effort>   <!-- Added effort limit -->
+                    <velocity>5.0</velocity> <!-- Optional, recommended -->
+                </limit>
+            </axis>
+        </joint>
+        <plugin
+            filename="libstart-signal-plugin.so"
+            name="gz::sim::systems::StartSignalPlugin">
+            <start_time>5</start_time>
+        </plugin>
+    </model>
+</sdf>

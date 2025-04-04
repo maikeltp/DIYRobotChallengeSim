@@ -1,0 +1,2424 @@
+<?xml version="1.0" ?>
+<sdf version="1.6">
+  <world name="racetrack_world">
+   <physics name="1ms" type="ignored">
+            <max_step_size>0.001</max_step_size>
+            <real_time_factor>1.0</real_time_factor>
+        </physics>
+        <plugin
+            filename="gz-sim-physics-system"
+            name="gz::sim::systems::Physics">
+        </plugin>
+        <plugin
+            filename="gz-sim-user-commands-system"
+            name="gz::sim::systems::UserCommands">
+        </plugin>
+        <plugin
+            filename="gz-sim-scene-broadcaster-system"
+            name="gz::sim::systems::SceneBroadcaster">
+        </plugin>
+        <plugin
+            filename="gz-sim-imu-system"
+            name="gz::sim::systems::Imu">
+        </plugin>
+        <plugin
+            filename="gz-sim-sensors-system"
+            name="gz::sim::systems::Sensors">
+            <render_engine>ogre2</render_engine>
+        </plugin>
+        <gui fullscreen="0">
+
+          <!-- 3D scene -->
+          <plugin filename="MinimalScene" name="3D View">
+            <gz-gui>
+              <title>3D View</title>
+              <property type="bool" key="showTitleBar">false</property>
+              <property type="string" key="state">docked</property>
+            </gz-gui>
+
+            <engine>ogre2</engine>
+            <scene>scene</scene>
+            <ambient_light>0.4 0.4 0.4</ambient_light>
+            <background_color>0.8 0.8 0.8</background_color>
+            <camera_pose>-6 0 6 0 0.5 0</camera_pose>
+            <camera_clip>
+              <near>0.25</near>
+              <far>25000</far>
+            </camera_clip>
+          </plugin>
+
+          <!-- Plugins that add functionality to the scene -->
+          <plugin filename="EntityContextMenuPlugin" name="Entity context menu">
+            <gz-gui>
+              <property key="state" type="string">floating</property>
+              <property key="width" type="double">5</property>
+              <property key="height" type="double">5</property>
+              <property key="showTitleBar" type="bool">false</property>
+            </gz-gui>
+          </plugin>
+          <plugin filename="GzSceneManager" name="Scene Manager">
+            <gz-gui>
+              <property key="resizable" type="bool">false</property>
+              <property key="width" type="double">5</property>
+              <property key="height" type="double">5</property>
+              <property key="state" type="string">floating</property>
+              <property key="showTitleBar" type="bool">false</property>
+            </gz-gui>
+          </plugin>
+          <plugin filename="InteractiveViewControl" name="Interactive view control">
+            <gz-gui>
+              <property key="resizable" type="bool">false</property>
+              <property key="width" type="double">5</property>
+              <property key="height" type="double">5</property>
+              <property key="state" type="string">floating</property>
+              <property key="showTitleBar" type="bool">false</property>
+            </gz-gui>
+          </plugin>
+          <plugin filename="CameraTracking" name="Camera Tracking">
+            <gz-gui>
+              <property key="resizable" type="bool">false</property>
+              <property key="width" type="double">5</property>
+              <property key="height" type="double">5</property>
+              <property key="state" type="string">floating</property>
+              <property key="showTitleBar" type="bool">false</property>
+            </gz-gui>
+          </plugin>
+          <plugin filename="MarkerManager" name="Marker manager">
+            <gz-gui>
+              <property key="resizable" type="bool">false</property>
+              <property key="width" type="double">5</property>
+              <property key="height" type="double">5</property>
+              <property key="state" type="string">floating</property>
+              <property key="showTitleBar" type="bool">false</property>
+            </gz-gui>
+          </plugin>
+          <plugin filename="SelectEntities" name="Select Entities">
+            <gz-gui>
+              <anchors target="Select entities">
+                <line own="right" target="right"/>
+                <line own="top" target="top"/>
+              </anchors>
+              <property key="resizable" type="bool">false</property>
+              <property key="width" type="double">5</property>
+              <property key="height" type="double">5</property>
+              <property key="state" type="string">floating</property>
+              <property key="showTitleBar" type="bool">false</property>
+            </gz-gui>
+          </plugin>
+          <plugin filename="VisualizationCapabilities" name="Visualization Capabilities">
+            <gz-gui>
+              <property key="resizable" type="bool">false</property>
+              <property key="width" type="double">5</property>
+              <property key="height" type="double">5</property>
+              <property key="state" type="string">floating</property>
+              <property key="showTitleBar" type="bool">false</property>
+            </gz-gui>
+          </plugin>
+
+          <plugin filename="Spawn" name="Spawn Entities">
+            <gz-gui>
+              <anchors target="Select entities">
+                <line own="right" target="right"/>
+                <line own="top" target="top"/>
+              </anchors>
+              <property key="resizable" type="bool">false</property>
+              <property key="width" type="double">5</property>
+              <property key="height" type="double">5</property>
+              <property key="state" type="string">floating</property>
+              <property key="showTitleBar" type="bool">false</property>
+            </gz-gui>
+          </plugin>
+
+          <!-- World control -->
+          <plugin filename="WorldControl" name="World control">
+            <gz-gui>
+              <title>World control</title>
+              <property type="bool" key="showTitleBar">false</property>
+              <property type="bool" key="resizable">false</property>
+              <property type="double" key="height">72</property>
+              <property type="double" key="width">150</property>
+              <property type="double" key="z">1</property>
+
+              <property type="string" key="state">floating</property>
+              <anchors target="3D View">
+                <line own="left" target="left"/>
+                <line own="bottom" target="bottom"/>
+              </anchors>
+            </gz-gui>
+
+            <play_pause>true</play_pause>
+            <step>true</step>
+            <start_paused>true</start_paused>
+            <use_event>true</use_event>
+
+          </plugin>
+
+          <!-- World statistics -->
+          <plugin filename="WorldStats" name="World stats">
+            <gz-gui>
+              <title>World stats</title>
+              <property type="bool" key="showTitleBar">false</property>
+              <property type="bool" key="resizable">false</property>
+              <property type="double" key="height">110</property>
+              <property type="double" key="width">290</property>
+              <property type="double" key="z">1</property>
+
+              <property type="string" key="state">floating</property>
+              <anchors target="3D View">
+                <line own="right" target="right"/>
+                <line own="bottom" target="bottom"/>
+              </anchors>
+            </gz-gui>
+
+            <sim_time>true</sim_time>
+            <real_time>true</real_time>
+            <real_time_factor>true</real_time_factor>
+            <iterations>true</iterations>
+          </plugin>
+
+          <plugin filename="ImageDisplay" name="Image Display">
+            <gz-gui>
+              <property key="state" type="string">docked</property>
+            </gz-gui>
+          </plugin>
+
+          <plugin filename="VisualizeLidar" name="Visualize Lidar">
+          </plugin>
+
+          <!-- Translate / rotate -->
+          <plugin filename="TransformControl" name="Transform control">
+            <gz-gui>
+              <property key="resizable" type="bool">false</property>
+              <property key="x" type="double">0</property>
+              <property key="y" type="double">50</property>
+              <property key="width" type="double">250</property>
+              <property key="height" type="double">50</property>
+              <property key="state" type="string">floating</property>
+              <property key="showTitleBar" type="bool">false</property>
+              <property key="cardBackground" type="string">#777777</property>
+            </gz-gui>
+          </plugin>
+
+          <!-- Screenshot -->
+          <plugin filename="Screenshot" name="Screenshot">
+            <gz-gui>
+              <property key="resizable" type="bool">false</property>
+              <property key="x" type="double">250</property>
+              <property key="y" type="double">50</property>
+              <property key="width" type="double">50</property>
+              <property key="height" type="double">50</property>
+              <property key="state" type="string">floating</property>
+              <property key="showTitleBar" type="bool">false</property>
+              <property key="cardBackground" type="string">#777777</property>
+            </gz-gui>
+          </plugin>
+
+          <!-- Video recorder -->
+          <plugin filename="VideoRecorder" name="VideoRecorder">
+            <gz-gui>
+              <property key="resizable" type="bool">false</property>
+              <property key="x" type="double">300</property>
+              <property key="y" type="double">50</property>
+              <property key="width" type="double">50</property>
+              <property key="height" type="double">50</property>
+              <property key="state" type="string">floating</property>
+              <property key="showTitleBar" type="bool">false</property>
+              <property key="cardBackground" type="string">#777777</property>
+            </gz-gui>
+
+            <record_video>
+              <use_sim_time>true</use_sim_time>
+              <lockstep>false</lockstep>
+              <bitrate>4000000</bitrate>
+            </record_video>
+          </plugin>
+
+          <!-- Inspector -->
+          <plugin filename="ComponentInspector" name="Component inspector">
+            <gz-gui>
+              <property type="string" key="state">docked_collapsed</property>
+            </gz-gui>
+          </plugin>
+
+          <!-- Entity tree -->
+          <plugin filename="EntityTree" name="Entity tree">
+            <gz-gui>
+              <property type="string" key="state">docked_collapsed</property>
+            </gz-gui>
+          </plugin>
+
+          <!-- View angle -->
+          <plugin filename="ViewAngle" name="View angle">
+            <gz-gui>
+              <property type="string" key="state">docked_collapsed</property>
+            </gz-gui>
+          </plugin>
+
+        </gui>
+
+        <scene>
+          <ambient>1.0 1.0 1.0</ambient>
+          <background>0.8 0.8 0.8</background>
+          <sky></sky>
+        </scene>
+
+        <light type="directional" name="sun">
+            <cast_shadows>true</cast_shadows>
+            <pose>0 0 10 0 0 0</pose>
+            <diffuse>0.8 0.8 0.8 1</diffuse>
+            <specular>0.2 0.2 0.2 1</specular>
+            <attenuation>
+                <range>1000</range>
+                <constant>0.9</constant>
+                <linear>0.01</linear>
+                <quadratic>0.001</quadratic>
+            </attenuation>
+            <direction>-0.5 0.1 -0.9</direction>
+        </light>
+
+        <model name="ground_plane">
+            <static>true</static>
+            <link name="link">
+                <collision name="collision">
+                <geometry>
+                    <plane>
+                    <normal>0 0 1</normal>
+                    </plane>
+                </geometry>
+                </collision>
+                <visual name="visual">
+                <geometry>
+                    <plane>
+                    <normal>0 0 1</normal>
+                    <size>100 100</size>
+                    </plane>
+                </geometry>
+                <material>
+                    <ambient>0.8 0.8 0.8 1</ambient>
+                    <diffuse>0.8 0.8 0.8 1</diffuse>
+                    <specular>0.8 0.8 0.8 1</specular>
+                </material>
+                </visual>
+            </link>
+        </model>
+
+
+        <include>
+            <name>model_0</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>-19.5 10.25 0.25 0 0 -0.0</pose>
+        </include>
+
+        <include>
+            <name>model_1</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>-18.5 10.25 0.25 0 0 -0.0</pose>
+        </include>
+
+        <include>
+            <name>model_2</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>-17.5 10.25 0.25 0 0 -0.0</pose>
+        </include>
+
+        <include>
+            <name>model_3</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>-16.5 10.25 0.25 0 0 -0.0</pose>
+        </include>
+
+        <include>
+            <name>model_4</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>-15.5 10.25 0.25 0 0 -0.0</pose>
+        </include>
+
+        <include>
+            <name>model_5</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>-14.5 10.25 0.25 0 0 -0.0</pose>
+        </include>
+
+        <include>
+            <name>model_6</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>-13.5 10.25 0.25 0 0 -0.0</pose>
+        </include>
+
+        <include>
+            <name>model_7</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>-12.5 10.25 0.25 0 0 -0.0</pose>
+        </include>
+
+        <include>
+            <name>model_8</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>-20.25 9.5 0.25 0 0 1.5707963267948966</pose>
+        </include>
+
+        <include>
+            <name>model_9</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>-20.25 8.5 0.25 0 0 1.5707963267948966</pose>
+        </include>
+
+        <include>
+            <name>model_10</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>-20.25 7.5 0.25 0 0 1.5707963267948966</pose>
+        </include>
+
+        <include>
+            <name>model_11</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>-20.25 6.5 0.25 0 0 1.5707963267948966</pose>
+        </include>
+
+        <include>
+            <name>model_12</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>-20.25 5.5 0.25 0 0 1.5707963267948966</pose>
+        </include>
+
+        <include>
+            <name>model_13</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>-20.25 4.5 0.25 0 0 1.5707963267948966</pose>
+        </include>
+
+        <include>
+            <name>model_14</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>-20.25 3.5 0.25 0 0 1.5707963267948966</pose>
+        </include>
+
+        <include>
+            <name>model_15</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>-20.25 2.5 0.25 0 0 1.5707963267948966</pose>
+        </include>
+
+        <include>
+            <name>model_16</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>-11.5 10.25 0.25 0 0 -0.0</pose>
+        </include>
+
+        <include>
+            <name>model_17</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>-10.5 10.25 0.25 0 0 -0.0</pose>
+        </include>
+
+        <include>
+            <name>model_18</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>-9.5 10.25 0.25 0 0 -0.0</pose>
+        </include>
+
+        <include>
+            <name>model_19</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>-8.5 10.25 0.25 0 0 -0.0</pose>
+        </include>
+
+        <include>
+            <name>model_20</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>-7.5 10.25 0.25 0 0 -0.0</pose>
+        </include>
+
+        <include>
+            <name>model_21</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>-6.5 10.25 0.25 0 0 -0.0</pose>
+        </include>
+
+        <include>
+            <name>model_22</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>-5.5 10.25 0.25 0 0 -0.0</pose>
+        </include>
+
+        <include>
+            <name>model_23</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>-4.5 10.25 0.25 0 0 -0.0</pose>
+        </include>
+
+        <include>
+            <name>model_24</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>-3.5 10.25 0.25 0 0 -0.0</pose>
+        </include>
+
+        <include>
+            <name>model_25</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>-2.5 10.25 0.25 0 0 -0.0</pose>
+        </include>
+
+        <include>
+            <name>model_26</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>-1.5 10.25 0.25 0 0 -0.0</pose>
+        </include>
+
+        <include>
+            <name>model_27</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>-0.5 10.25 0.25 0 0 -0.0</pose>
+        </include>
+
+        <include>
+            <name>model_28</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>0.5 10.25 0.25 0 0 -0.0</pose>
+        </include>
+
+        <include>
+            <name>model_29</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>1.5 10.25 0.25 0 0 -0.0</pose>
+        </include>
+
+        <include>
+            <name>model_30</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>2.5 10.25 0.25 0 0 -0.0</pose>
+        </include>
+
+        <include>
+            <name>model_31</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>3.5 10.25 0.25 0 0 -0.0</pose>
+        </include>
+
+        <include>
+            <name>model_32</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>4.5 10.25 0.25 0 0 -0.0</pose>
+        </include>
+
+        <include>
+            <name>model_33</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>5.5 10.25 0.25 0 0 -0.0</pose>
+        </include>
+
+        <include>
+            <name>model_34</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>6.5 10.25 0.25 0 0 -0.0</pose>
+        </include>
+
+        <include>
+            <name>model_35</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>7.5 10.25 0.25 0 0 -0.0</pose>
+        </include>
+
+        <include>
+            <name>model_36</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>8.5 10.25 0.25 0 0 -0.0</pose>
+        </include>
+
+        <include>
+            <name>model_37</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>9.5 10.25 0.25 0 0 -0.0</pose>
+        </include>
+
+        <include>
+            <name>model_38</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>10.5 10.25 0.25 0 0 -0.0</pose>
+        </include>
+
+        <include>
+            <name>model_39</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>11.5 10.25 0.25 0 0 -0.0</pose>
+        </include>
+
+        <include>
+            <name>model_40</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>12.5 10.25 0.25 0 0 -0.0</pose>
+        </include>
+
+        <include>
+            <name>model_41</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>13.5 10.25 0.25 0 0 -0.0</pose>
+        </include>
+
+        <include>
+            <name>model_42</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>14.5 10.25 0.25 0 0 -0.0</pose>
+        </include>
+
+        <include>
+            <name>model_43</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>15.5 10.25 0.25 0 0 -0.0</pose>
+        </include>
+
+        <include>
+            <name>model_44</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>16.5 10.25 0.25 0 0 -0.0</pose>
+        </include>
+
+        <include>
+            <name>model_45</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>17.5 10.25 0.25 0 0 -0.0</pose>
+        </include>
+
+        <include>
+            <name>model_46</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>18.5 10.25 0.25 0 0 -0.0</pose>
+        </include>
+
+        <include>
+            <name>model_47</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>19.5 10.25 0.25 0 0 -0.0</pose>
+        </include>
+
+        <include>
+            <name>model_48</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>-20.25 1.5 0.25 0 0 1.5707963267948966</pose>
+        </include>
+
+        <include>
+            <name>model_49</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>-20.25 0.5 0.25 0 0 1.5707963267948966</pose>
+        </include>
+
+        <include>
+            <name>model_50</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>-20.25 -0.5 0.25 0 0 1.5707963267948966</pose>
+        </include>
+
+        <include>
+            <name>model_51</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>-20.25 -1.5 0.25 0 0 1.5707963267948966</pose>
+        </include>
+
+        <include>
+            <name>model_52</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>-20.25 -2.5 0.25 0 0 1.5707963267948966</pose>
+        </include>
+
+        <include>
+            <name>model_53</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>-20.25 -3.5 0.25 0 0 1.5707963267948966</pose>
+        </include>
+
+        <include>
+            <name>model_54</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>-20.25 -4.5 0.25 0 0 1.5707963267948966</pose>
+        </include>
+
+        <include>
+            <name>model_55</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>-20.25 -5.5 0.25 0 0 1.5707963267948966</pose>
+        </include>
+
+        <include>
+            <name>model_56</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>-20.25 -6.5 0.25 0 0 1.5707963267948966</pose>
+        </include>
+
+        <include>
+            <name>model_57</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>-20.25 -7.5 0.25 0 0 1.5707963267948966</pose>
+        </include>
+
+        <include>
+            <name>model_58</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>-20.25 -8.5 0.25 0 0 1.5707963267948966</pose>
+        </include>
+
+        <include>
+            <name>model_59</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>-20.25 -9.5 0.25 0 0 1.5707963267948966</pose>
+        </include>
+
+        <include>
+            <name>model_60</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>-19.5 -10.25 0.25 0 0 -0.0</pose>
+        </include>
+
+        <include>
+            <name>model_61</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>-18.5 -10.25 0.25 0 0 -0.0</pose>
+        </include>
+
+        <include>
+            <name>model_62</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>-17.5 -10.25 0.25 0 0 -0.0</pose>
+        </include>
+
+        <include>
+            <name>model_63</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>-16.5 -10.25 0.25 0 0 -0.0</pose>
+        </include>
+
+        <include>
+            <name>model_64</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>-15.5 -10.25 0.25 0 0 -0.0</pose>
+        </include>
+
+        <include>
+            <name>model_65</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>-14.5 -10.25 0.25 0 0 -0.0</pose>
+        </include>
+
+        <include>
+            <name>model_66</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>-13.5 -10.25 0.25 0 0 -0.0</pose>
+        </include>
+
+        <include>
+            <name>model_67</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>-12.5 -10.25 0.25 0 0 -0.0</pose>
+        </include>
+
+        <include>
+            <name>model_68</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>-11.5 -10.25 0.25 0 0 -0.0</pose>
+        </include>
+
+        <include>
+            <name>model_69</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>-10.5 -10.25 0.25 0 0 -0.0</pose>
+        </include>
+
+        <include>
+            <name>model_70</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>-9.5 -10.25 0.25 0 0 -0.0</pose>
+        </include>
+
+        <include>
+            <name>model_71</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>-8.5 -10.25 0.25 0 0 -0.0</pose>
+        </include>
+
+        <include>
+            <name>model_72</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>-7.5 -10.25 0.25 0 0 -0.0</pose>
+        </include>
+
+        <include>
+            <name>model_73</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>-6.5 -10.25 0.25 0 0 -0.0</pose>
+        </include>
+
+        <include>
+            <name>model_74</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>-5.5 -10.25 0.25 0 0 -0.0</pose>
+        </include>
+
+        <include>
+            <name>model_75</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>-4.5 -10.25 0.25 0 0 -0.0</pose>
+        </include>
+
+        <include>
+            <name>model_76</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>-3.5 -10.25 0.25 0 0 -0.0</pose>
+        </include>
+
+        <include>
+            <name>model_77</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>-2.5 -10.25 0.25 0 0 -0.0</pose>
+        </include>
+
+        <include>
+            <name>model_78</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>-1.5 -10.25 0.25 0 0 -0.0</pose>
+        </include>
+
+        <include>
+            <name>model_79</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>-0.5 -10.25 0.25 0 0 -0.0</pose>
+        </include>
+
+        <include>
+            <name>model_80</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>0.5 -10.25 0.25 0 0 -0.0</pose>
+        </include>
+
+        <include>
+            <name>model_81</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>1.5 -10.25 0.25 0 0 -0.0</pose>
+        </include>
+
+        <include>
+            <name>model_82</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>2.5 -10.25 0.25 0 0 -0.0</pose>
+        </include>
+
+        <include>
+            <name>model_83</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>3.5 -10.25 0.25 0 0 -0.0</pose>
+        </include>
+
+        <include>
+            <name>model_84</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>4.5 -10.25 0.25 0 0 -0.0</pose>
+        </include>
+
+        <include>
+            <name>model_85</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>5.5 -10.25 0.25 0 0 -0.0</pose>
+        </include>
+
+        <include>
+            <name>model_86</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>6.5 -10.25 0.25 0 0 -0.0</pose>
+        </include>
+
+        <include>
+            <name>model_87</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>7.5 -10.25 0.25 0 0 -0.0</pose>
+        </include>
+
+        <include>
+            <name>model_88</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>8.5 -10.25 0.25 0 0 -0.0</pose>
+        </include>
+
+        <include>
+            <name>model_89</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>9.5 -10.25 0.25 0 0 -0.0</pose>
+        </include>
+
+        <include>
+            <name>model_90</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>10.5 -10.25 0.25 0 0 -0.0</pose>
+        </include>
+
+        <include>
+            <name>model_91</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>11.5 -10.25 0.25 0 0 -0.0</pose>
+        </include>
+
+        <include>
+            <name>model_92</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>12.5 -10.25 0.25 0 0 -0.0</pose>
+        </include>
+
+        <include>
+            <name>model_93</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>13.5 -10.25 0.25 0 0 -0.0</pose>
+        </include>
+
+        <include>
+            <name>model_94</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>14.5 -10.25 0.25 0 0 -0.0</pose>
+        </include>
+
+        <include>
+            <name>model_95</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>15.5 -10.25 0.25 0 0 -0.0</pose>
+        </include>
+
+        <include>
+            <name>model_96</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>16.5 -10.25 0.25 0 0 -0.0</pose>
+        </include>
+
+        <include>
+            <name>model_97</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>17.5 -10.25 0.25 0 0 -0.0</pose>
+        </include>
+
+        <include>
+            <name>model_98</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>18.5 -10.25 0.25 0 0 -0.0</pose>
+        </include>
+
+        <include>
+            <name>model_99</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>19.5 -10.25 0.25 0 0 -0.0</pose>
+        </include>
+
+        <include>
+            <name>model_100</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>20.25 9.5 0.25 0 0 1.5707963267948966</pose>
+        </include>
+
+        <include>
+            <name>model_101</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>11.3125 6.299999999999999 0.25 0 0 1.5707963267948966</pose>
+        </include>
+
+        <include>
+            <name>model_102</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>11.3125 5.299999999999999 0.25 0 0 1.5707963267948966</pose>
+        </include>
+
+        <include>
+            <name>model_103</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>11.3125 4.299999999999999 0.25 0 0 1.5707963267948966</pose>
+        </include>
+
+        <include>
+            <name>model_104</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>11.3125 3.299999999999999 0.25 0 0 1.5707963267948966</pose>
+        </include>
+
+        <include>
+            <name>model_105</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>11.3125 2.299999999999999 0.25 0 0 1.5707963267948966</pose>
+        </include>
+
+        <include>
+            <name>model_106</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>11.3125 1.3000000000000007 0.25 0 0 1.5707963267948966</pose>
+        </include>
+
+        <include>
+            <name>model_107</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>11.3125 0.3000000000000007 0.25 0 0 1.5707963267948966</pose>
+        </include>
+
+        <include>
+            <name>model_108</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>11.3125 -0.6999999999999993 0.25 0 0 1.5707963267948966</pose>
+        </include>
+
+        <include>
+            <name>model_109</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>20.25 -4.5 0.25 0 0 1.5707963267948966</pose>
+        </include>
+
+        <include>
+            <name>model_110</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>20.25 -5.5 0.25 0 0 1.5707963267948966</pose>
+        </include>
+
+        <include>
+            <name>model_111</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>20.25 -6.5 0.25 0 0 1.5707963267948966</pose>
+        </include>
+
+        <include>
+            <name>model_112</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>20.25 -7.5 0.25 0 0 1.5707963267948966</pose>
+        </include>
+
+        <include>
+            <name>model_113</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>20.25 -8.5 0.25 0 0 1.5707963267948966</pose>
+        </include>
+
+        <include>
+            <name>model_114</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>20.25 -9.5 0.25 0 0 1.5707963267948966</pose>
+        </include>
+
+        <include>
+            <name>model_115</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>-17.75 -7.5 0.25 0 0 1.5707963267948966</pose>
+        </include>
+
+        <include>
+            <name>model_116</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>-17.75 -6.5 0.25 0 0 1.5707963267948966</pose>
+        </include>
+
+        <include>
+            <name>model_117</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>-17.0 -7.75 0.25 0 0 3.141592653589793</pose>
+        </include>
+
+        <include>
+            <name>model_118</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>-16.0 -7.75 0.25 0 0 3.141592653589793</pose>
+        </include>
+
+        <include>
+            <name>model_119</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>-15.0 -7.75 0.25 0 0 3.141592653589793</pose>
+        </include>
+
+        <include>
+            <name>model_120</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>-14.0 -7.75 0.25 0 0 3.141592653589793</pose>
+        </include>
+
+        <include>
+            <name>model_121</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>-13.0 -7.75 0.25 0 0 3.141592653589793</pose>
+        </include>
+
+        <include>
+            <name>model_122</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>-8.125 -5.775000000000002 0.25 0 0 3.5779249665883754</pose>
+        </include>
+
+        <include>
+            <name>model_123</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>-12.25 -7.5 0.25 0 0 1.5707963267948966</pose>
+        </include>
+
+        <include>
+            <name>model_124</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>-9.024999999999999 -6.400000000000002 0.25 0 0 -2.356194490192345</pose>
+        </include>
+
+        <include>
+            <name>model_125</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>-9.600000000000001 -7.400000000000002 0.25 0 0 1.3089969389957472</pose>
+        </include>
+
+        <include>
+            <name>model_126</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>-7.050000000000001 -5.525000000000002 0.25 0 0 3.141592653589793</pose>
+        </include>
+
+        <include>
+            <name>model_127</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>-12.1 -6.425000000000001 0.25 0 0 1.3089969389957472</pose>
+        </include>
+
+        <include>
+            <name>model_128</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>-10.924999999999999 -4.625 0.25 0 0 -2.356194490192345</pose>
+        </include>
+
+        <include>
+            <name>model_129</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>-10.1 -3.950000000000003 0.25 0 0 -2.55</pose>
+        </include>
+
+        <include>
+            <name>model_130</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>-9.125 -3.450000000000003 0.25 0 0 3.490658503988659</pose>
+        </include>
+
+        <include>
+            <name>model_131</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>-8.075 -3.1750000000000007 0.25 0 0 3.3161255787892263</pose>
+        </include>
+
+        <include>
+            <name>model_132</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>-7.024999999999999 -3.1000000000000014 0.25 0 0 3.141592653589793</pose>
+        </include>
+
+        <include>
+            <name>model_133</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>-11.625 -5.425000000000001 0.25 0 0 0.9599310885968813</pose>
+        </include>
+
+        <include>
+            <name>model_134</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>-8.825 -7.75 0.25 0 0 3.141592653589793</pose>
+        </include>
+
+        <include>
+            <name>model_135</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>-7.800000000000001 -7.75 0.25 0 0 3.141592653589793</pose>
+        </include>
+
+        <include>
+            <name>model_136</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>-6.800000000000001 -7.75 0.25 0 0 3.141592653589793</pose>
+        </include>
+
+        <include>
+            <name>model_137</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>-6.274999999999999 -5.775000000000002 0.25 0 0 1.5707963267948966</pose>
+        </include>
+
+        <include>
+            <name>model_138</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>-6.274999999999999 -6.900000000000002 0.25 0 0 1.5707963267948966</pose>
+        </include>
+
+        <include>
+            <name>model_139</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>-6.25 -2.875 0.25 0 0 1.5707963267948966</pose>
+        </include>
+
+        <include>
+            <name>model_140</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>-17.75 -5.525000000000002 0.25 0 0 1.5707963267948966</pose>
+        </include>
+
+        <include>
+            <name>model_141</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>-7.024999999999999 -2.3000000000000007 0.25 0 0 3.141592653589793</pose>
+        </include>
+
+        <include>
+            <name>model_142</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>-8.024999999999999 -2.3000000000000007 0.25 0 0 3.141592653589793</pose>
+        </include>
+
+        <include>
+            <name>model_143</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>-9.024999999999999 -2.3000000000000007 0.25 0 0 3.141592653589793</pose>
+        </include>
+
+        <include>
+            <name>model_144</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>-10.024999999999999 -2.3000000000000007 0.25 0 0 3.141592653589793</pose>
+        </include>
+
+        <include>
+            <name>model_145</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>-11.024999999999999 -2.3000000000000007 0.25 0 0 3.141592653589793</pose>
+        </include>
+
+        <include>
+            <name>model_146</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>17.0375 6.024999999999999 0.25 0 0 0.9599310885968813</pose>
+        </include>
+
+        <include>
+            <name>model_147</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>-13.1 -2.5 0.25 0 0 0.2617993877991494</pose>
+        </include>
+
+        <include>
+            <name>model_148</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>-12.024999999999999 -2.3000000000000007 0.25 0 0 3.141592653589793</pose>
+        </include>
+
+        <include>
+            <name>model_149</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>-14.075 -2.775000000000002 0.25 0 0 0.2617993877991494</pose>
+        </include>
+
+        <include>
+            <name>model_150</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>-15.075 -3.0500000000000007 0.25 0 0 0.2617993877991494</pose>
+        </include>
+
+        <include>
+            <name>model_151</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>-16.075 -3.325000000000003 0.25 0 0 0.2617993877991494</pose>
+        </include>
+
+        <include>
+            <name>model_152</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>-17.075 -3.6000000000000014 0.25 0 0 0.2617993877991494</pose>
+        </include>
+
+        <include>
+            <name>model_153</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>-17.75 -4.5 0.25 0 0 1.5707963267948966</pose>
+        </include>
+
+        <include>
+            <name>model_154</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>-13.375 0.5 0.25 0 0 0.2617993877991494</pose>
+        </include>
+
+        <include>
+            <name>model_155</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>-14.35 0.22499999999999787 0.25 0 0 0.2617993877991494</pose>
+        </include>
+
+        <include>
+            <name>model_156</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>-15.35 -0.05000000000000071 0.25 0 0 0.2617993877991494</pose>
+        </include>
+
+        <include>
+            <name>model_157</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>-16.35 -0.3249999999999993 0.25 0 0 0.2617993877991494</pose>
+        </include>
+
+        <include>
+            <name>model_158</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>-17.35 -0.6000000000000014 0.25 0 0 0.2617993877991494</pose>
+        </include>
+
+        <include>
+            <name>model_159</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>-7.274999999999999 0.625 0.25 0 0 3.141592653589793</pose>
+        </include>
+
+        <include>
+            <name>model_160</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>-8.274999999999999 0.625 0.25 0 0 3.141592653589793</pose>
+        </include>
+
+        <include>
+            <name>model_161</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>-9.274999999999999 0.625 0.25 0 0 3.141592653589793</pose>
+        </include>
+
+        <include>
+            <name>model_162</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>-10.274999999999999 0.625 0.25 0 0 3.141592653589793</pose>
+        </include>
+
+        <include>
+            <name>model_163</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>-11.274999999999999 0.625 0.25 0 0 3.141592653589793</pose>
+        </include>
+
+        <include>
+            <name>model_164</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>-12.274999999999999 0.625 0.25 0 0 3.141592653589793</pose>
+        </include>
+
+        <include>
+            <name>model_165</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>-17.725 0.1750000000000007 0.25 0 0 1.5707963267948966</pose>
+        </include>
+
+        <include>
+            <name>model_166</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>-17.725 1.1750000000000007 0.25 0 0 1.5707963267948966</pose>
+        </include>
+
+        <include>
+            <name>model_167</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>-17.725 2.1499999999999986 0.25 0 0 1.5707963267948966</pose>
+        </include>
+
+        <include>
+            <name>model_168</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>-17.725 5.449999999999999 0.25 0 0 1.5707963267948966</pose>
+        </include>
+
+        <include>
+            <name>model_169</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>-17.725 6.424999999999999 0.25 0 0 1.5707963267948966</pose>
+        </include>
+
+        <include>
+            <name>model_170</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>-17.725 7.449999999999999 0.25 0 0 1.5707963267948966</pose>
+        </include>
+
+        <include>
+            <name>model_171</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>-11.924999999999999 5.199999999999999 0.25 0 0 3.141592653589793</pose>
+        </include>
+
+        <include>
+            <name>model_172</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>-12.924999999999999 5.199999999999999 0.25 0 0 3.141592653589793</pose>
+        </include>
+
+        <include>
+            <name>model_173</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>-13.924999999999999 5.199999999999999 0.25 0 0 3.141592653589793</pose>
+        </include>
+
+        <include>
+            <name>model_174</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>-14.924999999999999 5.199999999999999 0.25 0 0 3.141592653589793</pose>
+        </include>
+
+        <include>
+            <name>model_175</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>-15.924999999999999 5.199999999999999 0.25 0 0 3.141592653589793</pose>
+        </include>
+
+        <include>
+            <name>model_176</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>-16.924999999999997 5.199999999999999 0.25 0 0 3.141592653589793</pose>
+        </include>
+
+        <include>
+            <name>model_177</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>-5.924999999999997 5.199999999999999 0.25 0 0 3.141592653589793</pose>
+        </include>
+
+        <include>
+            <name>model_178</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>-6.925000000000001 5.199999999999999 0.25 0 0 3.141592653589793</pose>
+        </include>
+
+        <include>
+            <name>model_179</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>-7.925000000000001 5.199999999999999 0.25 0 0 3.141592653589793</pose>
+        </include>
+
+        <include>
+            <name>model_180</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>-8.925 5.199999999999999 0.25 0 0 3.141592653589793</pose>
+        </include>
+
+        <include>
+            <name>model_181</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>-9.924999999999997 5.199999999999999 0.25 0 0 3.141592653589793</pose>
+        </include>
+
+        <include>
+            <name>model_182</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>-10.924999999999999 5.199999999999999 0.25 0 0 3.141592653589793</pose>
+        </include>
+
+        <include>
+            <name>model_183</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>-11.95 2.7249999999999996 0.25 0 0 3.141592653589793</pose>
+        </include>
+
+        <include>
+            <name>model_184</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>-12.95 2.7249999999999996 0.25 0 0 3.141592653589793</pose>
+        </include>
+
+        <include>
+            <name>model_185</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>-13.95 2.7249999999999996 0.25 0 0 3.141592653589793</pose>
+        </include>
+
+        <include>
+            <name>model_186</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>-14.95 2.7249999999999996 0.25 0 0 3.141592653589793</pose>
+        </include>
+
+        <include>
+            <name>model_187</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>-15.95 2.7249999999999996 0.25 0 0 3.141592653589793</pose>
+        </include>
+
+        <include>
+            <name>model_188</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>-16.95 2.7249999999999996 0.25 0 0 3.141592653589793</pose>
+        </include>
+
+        <include>
+            <name>model_189</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>-5.949999999999999 2.7249999999999996 0.25 0 0 3.141592653589793</pose>
+        </include>
+
+        <include>
+            <name>model_190</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>-6.949999999999999 2.7249999999999996 0.25 0 0 3.141592653589793</pose>
+        </include>
+
+        <include>
+            <name>model_191</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>-7.949999999999999 2.7249999999999996 0.25 0 0 3.141592653589793</pose>
+        </include>
+
+        <include>
+            <name>model_192</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>-8.95 2.7249999999999996 0.25 0 0 3.141592653589793</pose>
+        </include>
+
+        <include>
+            <name>model_193</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>-9.95 2.7249999999999996 0.25 0 0 3.141592653589793</pose>
+        </include>
+
+        <include>
+            <name>model_194</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>-10.95 2.7249999999999996 0.25 0 0 3.141592653589793</pose>
+        </include>
+
+        <include>
+            <name>model_195</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>0.07500000000000284 2.7249999999999996 0.25 0 0 3.141592653589793</pose>
+        </include>
+
+        <include>
+            <name>model_196</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>-0.9249999999999972 2.7249999999999996 0.25 0 0 3.141592653589793</pose>
+        </include>
+
+        <include>
+            <name>model_197</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>6.075000000000003 2.7249999999999996 0.25 0 0 3.141592653589793</pose>
+        </include>
+
+        <include>
+            <name>model_198</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>5.075000000000003 2.7249999999999996 0.25 0 0 3.141592653589793</pose>
+        </include>
+
+        <include>
+            <name>model_199</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>4.075000000000003 2.7249999999999996 0.25 0 0 3.141592653589793</pose>
+        </include>
+
+        <include>
+            <name>model_200</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>3.075000000000003 2.7249999999999996 0.25 0 0 3.141592653589793</pose>
+        </include>
+
+        <include>
+            <name>model_201</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>2.075000000000003 2.7249999999999996 0.25 0 0 3.141592653589793</pose>
+        </include>
+
+        <include>
+            <name>model_202</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>1.0750000000000028 2.7249999999999996 0.25 0 0 3.141592653589793</pose>
+        </include>
+
+        <include>
+            <name>model_203</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>-1.25 0.625 0.25 0 0 3.141592653589793</pose>
+        </include>
+
+        <include>
+            <name>model_204</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>-6.25 0.625 0.25 0 0 3.141592653589793</pose>
+        </include>
+
+        <include>
+            <name>model_205</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>4.75 0.625 0.25 0 0 3.141592653589793</pose>
+        </include>
+
+        <include>
+            <name>model_206</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>3.75 0.625 0.25 0 0 3.141592653589793</pose>
+        </include>
+
+        <include>
+            <name>model_207</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>2.75 0.625 0.25 0 0 3.141592653589793</pose>
+        </include>
+
+        <include>
+            <name>model_208</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>1.75 0.625 0.25 0 0 3.141592653589793</pose>
+        </include>
+
+        <include>
+            <name>model_209</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>0.75 0.625 0.25 0 0 3.141592653589793</pose>
+        </include>
+
+        <include>
+            <name>model_210</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>-0.25 0.625 0.25 0 0 3.141592653589793</pose>
+        </include>
+
+        <include>
+            <name>model_211</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>1.5 -2.6750000000000007 0.25 0 0 3.141592653589793</pose>
+        </include>
+
+        <include>
+            <name>model_212</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>0.5 -2.6750000000000007 0.25 0 0 3.141592653589793</pose>
+        </include>
+
+        <include>
+            <name>model_213</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>-0.5 -2.6750000000000007 0.25 0 0 3.141592653589793</pose>
+        </include>
+
+        <include>
+            <name>model_214</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>-1.5 -2.6750000000000007 0.25 0 0 3.141592653589793</pose>
+        </include>
+
+        <include>
+            <name>model_215</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>-2.5 -2.6750000000000007 0.25 0 0 3.141592653589793</pose>
+        </include>
+
+        <include>
+            <name>model_216</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>-3.5 -2.6750000000000007 0.25 0 0 3.141592653589793</pose>
+        </include>
+
+        <include>
+            <name>model_217</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>7.5 -2.6750000000000007 0.25 0 0 3.141592653589793</pose>
+        </include>
+
+        <include>
+            <name>model_218</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>6.5 -2.6750000000000007 0.25 0 0 3.141592653589793</pose>
+        </include>
+
+        <include>
+            <name>model_219</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>5.5 -2.6750000000000007 0.25 0 0 3.141592653589793</pose>
+        </include>
+
+        <include>
+            <name>model_220</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>4.5 -2.6750000000000007 0.25 0 0 3.141592653589793</pose>
+        </include>
+
+        <include>
+            <name>model_221</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>3.5 -2.6750000000000007 0.25 0 0 3.141592653589793</pose>
+        </include>
+
+        <include>
+            <name>model_222</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>2.5 -2.6750000000000007 0.25 0 0 3.141592653589793</pose>
+        </include>
+
+        <include>
+            <name>model_223</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>1.0250000000000021 -5.375 0.25 0 0 3.141592653589793</pose>
+        </include>
+
+        <include>
+            <name>model_224</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>0.02500000000000213 -5.375 0.25 0 0 3.141592653589793</pose>
+        </include>
+
+        <include>
+            <name>model_225</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>-0.9749999999999979 -5.375 0.25 0 0 3.141592653589793</pose>
+        </include>
+
+        <include>
+            <name>model_226</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>-1.9749999999999979 -5.375 0.25 0 0 3.141592653589793</pose>
+        </include>
+
+        <include>
+            <name>model_227</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>-2.974999999999998 -5.375 0.25 0 0 3.141592653589793</pose>
+        </include>
+
+        <include>
+            <name>model_228</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>5.775000000000002 0.625 0.25 0 0 3.141592653589793</pose>
+        </include>
+
+        <include>
+            <name>model_229</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>7.024999999999999 -5.375 0.25 0 0 3.141592653589793</pose>
+        </include>
+
+        <include>
+            <name>model_230</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>6.025000000000006 -5.375 0.25 0 0 3.141592653589793</pose>
+        </include>
+
+        <include>
+            <name>model_231</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>5.025000000000002 -5.375 0.25 0 0 3.141592653589793</pose>
+        </include>
+
+        <include>
+            <name>model_232</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>4.025000000000002 -5.375 0.25 0 0 3.141592653589793</pose>
+        </include>
+
+        <include>
+            <name>model_233</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>3.025000000000002 -5.375 0.25 0 0 3.141592653589793</pose>
+        </include>
+
+        <include>
+            <name>model_234</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>2.025000000000002 -5.375 0.25 0 0 3.141592653589793</pose>
+        </include>
+
+        <include>
+            <name>model_235</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>1.5 -7.75 0.25 0 0 3.141592653589793</pose>
+        </include>
+
+        <include>
+            <name>model_236</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>0.5 -7.75 0.25 0 0 3.141592653589793</pose>
+        </include>
+
+        <include>
+            <name>model_237</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>-0.5 -7.75 0.25 0 0 3.141592653589793</pose>
+        </include>
+
+        <include>
+            <name>model_238</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>-1.5 -7.75 0.25 0 0 3.141592653589793</pose>
+        </include>
+
+        <include>
+            <name>model_239</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>-2.5 -7.75 0.25 0 0 3.141592653589793</pose>
+        </include>
+
+        <include>
+            <name>model_240</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>-3.5 -7.75 0.25 0 0 3.141592653589793</pose>
+        </include>
+
+        <include>
+            <name>model_241</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>7.5 -7.75 0.25 0 0 3.141592653589793</pose>
+        </include>
+
+        <include>
+            <name>model_242</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>6.5 -7.75 0.25 0 0 3.141592653589793</pose>
+        </include>
+
+        <include>
+            <name>model_243</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>5.5 -7.75 0.25 0 0 3.141592653589793</pose>
+        </include>
+
+        <include>
+            <name>model_244</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>4.5 -7.75 0.25 0 0 3.141592653589793</pose>
+        </include>
+
+        <include>
+            <name>model_245</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>3.5 -7.75 0.25 0 0 3.141592653589793</pose>
+        </include>
+
+        <include>
+            <name>model_246</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>2.5 -7.75 0.25 0 0 3.141592653589793</pose>
+        </include>
+
+        <include>
+            <name>model_247</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>-3.75 -5.975000000000001 0.25 0 0 1.5707963267948966</pose>
+        </include>
+
+        <include>
+            <name>model_248</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>-3.75 -7.0 0.25 0 0 1.5707963267948966</pose>
+        </include>
+
+        <include>
+            <name>model_249</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>7.800000000000004 -5.950000000000003 0.25 0 0 1.5707963267948966</pose>
+        </include>
+
+        <include>
+            <name>model_250</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>7.800000000000004 -6.975000000000001 0.25 0 0 1.5707963267948966</pose>
+        </include>
+
+        <include>
+            <name>model_251</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>6.550000000000004 0.875 0.25 0 0 1.5707963267948966</pose>
+        </include>
+
+        <include>
+            <name>model_252</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>6.550000000000004 1.9249999999999972 0.25 0 0 1.5707963267948966</pose>
+        </include>
+
+        <include>
+            <name>model_253</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>17.6875 6.924999999999999 0.25 0 0 1.5707963267948966</pose>
+        </include>
+
+        <include>
+            <name>model_254</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>16.4375 5.174999999999999 0.25 0 0 0.9599310885968813</pose>
+        </include>
+
+        <include>
+            <name>model_255</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>15.837500000000006 4.324999999999999 0.25 0 0 0.9599310885968813</pose>
+        </include>
+
+        <include>
+            <name>model_256</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>15.237500000000004 3.4499999999999993 0.25 0 0 0.9599310885968813</pose>
+        </include>
+
+        <include>
+            <name>model_257</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>14.637500000000003 2.5999999999999996 0.25 0 0 0.9599310885968813</pose>
+        </include>
+
+        <include>
+            <name>model_258</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>14.037500000000001 1.75 0.25 0 0 0.9599310885968813</pose>
+        </include>
+
+        <include>
+            <name>model_259</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>13.4375 0.8999999999999986 0.25 0 0 0.9599310885968813</pose>
+        </include>
+
+        <include>
+            <name>model_260</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>12.837499999999999 0.05000000000000071 0.25 0 0 0.9599310885968813</pose>
+        </include>
+
+        <include>
+            <name>model_261</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>12.237500000000004 -0.8000000000000007 0.25 0 0 0.9599310885968813</pose>
+        </include>
+
+        <include>
+            <name>model_262</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>11.637500000000003 -1.6500000000000021 0.25 0 0 0.9599310885968813</pose>
+        </include>
+
+        <include>
+            <name>model_263</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>17.112500000000004 1.625 0.25 0 0 0.9599310885968813</pose>
+        </include>
+
+        <include>
+            <name>model_264</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>16.512500000000003 0.7749999999999986 0.25 0 0 0.9599310885968813</pose>
+        </include>
+
+        <include>
+            <name>model_265</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>15.912500000000001 -0.07499999999999929 0.25 0 0 0.9599310885968813</pose>
+        </include>
+
+        <include>
+            <name>model_266</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>15.3125 -0.9499999999999993 0.25 0 0 0.9599310885968813</pose>
+        </include>
+
+        <include>
+            <name>model_267</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>14.712500000000006 -1.8000000000000007 0.25 0 0 0.9599310885968813</pose>
+        </include>
+
+        <include>
+            <name>model_268</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>14.112500000000004 -2.650000000000002 0.25 0 0 0.9599310885968813</pose>
+        </include>
+
+        <include>
+            <name>model_269</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>13.512500000000003 -3.5 0.25 0 0 0.9599310885968813</pose>
+        </include>
+
+        <include>
+            <name>model_270</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>12.912500000000001 -4.350000000000001 0.25 0 0 0.9599310885968813</pose>
+        </include>
+
+        <include>
+            <name>model_271</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>12.3125 -5.200000000000003 0.25 0 0 0.9599310885968813</pose>
+        </include>
+
+        <include>
+            <name>model_272</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>11.712499999999999 -6.075000000000003 0.25 0 0 0.9599310885968813</pose>
+        </include>
+
+        <include>
+            <name>model_273</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>11.5625 -7.5 0.25 0 0 3.141592653589793</pose>
+        </include>
+
+        <include>
+            <name>model_274</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>11.5625 -6.950000000000003 0.25 0 0 3.141592653589793</pose>
+        </include>
+
+        <include>
+            <name>model_275</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>17.6625 0.9250000000000007 0.25 0 0 1.5707963267948966</pose>
+        </include>
+
+        <include>
+            <name>model_276</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>12.587499999999999 -7.5 0.25 0 0 -0.0</pose>
+        </include>
+
+        <include>
+            <name>model_277</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>13.587500000000006 -7.5 0.25 0 0 -0.0</pose>
+        </include>
+
+        <include>
+            <name>model_278</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>14.587500000000006 -7.5 0.25 0 0 -0.0</pose>
+        </include>
+
+        <include>
+            <name>model_279</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>15.587500000000006 -7.5 0.25 0 0 -0.0</pose>
+        </include>
+
+        <include>
+            <name>model_280</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>16.587500000000006 -7.5 0.25 0 0 -0.0</pose>
+        </include>
+
+        <include>
+            <name>model_281</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>17.587500000000006 -7.5 0.25 0 0 -0.0</pose>
+        </include>
+
+        <include>
+            <name>model_282</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>17.6625 -0.10000000000000142 0.25 0 0 1.5707963267948966</pose>
+        </include>
+
+        <include>
+            <name>model_283</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>17.6625 -1.1000000000000014 0.25 0 0 1.5707963267948966</pose>
+        </include>
+
+        <include>
+            <name>model_284</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>17.6625 -2.1000000000000014 0.25 0 0 1.5707963267948966</pose>
+        </include>
+
+        <include>
+            <name>model_285</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>17.6625 -3.1000000000000014 0.25 0 0 1.5707963267948966</pose>
+        </include>
+
+        <include>
+            <name>model_286</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>17.6625 -4.100000000000001 0.25 0 0 1.5707963267948966</pose>
+        </include>
+
+        <include>
+            <name>model_287</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>17.6625 -5.100000000000001 0.25 0 0 1.5707963267948966</pose>
+        </include>
+
+        <include>
+            <name>model_288</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>17.6625 -6.150000000000002 0.25 0 0 1.5707963267948966</pose>
+        </include>
+
+        <include>
+            <name>model_289</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>17.612500000000004 -6.950000000000003 0.25 0 0 -0.0</pose>
+        </include>
+
+        <include>
+            <name>model_290</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>11.462499999999999 7.699999999999999 0.25 0 0 -0.0</pose>
+        </include>
+
+        <include>
+            <name>model_291</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>12.462499999999999 7.699999999999999 0.25 0 0 -0.0</pose>
+        </include>
+
+        <include>
+            <name>model_292</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>13.462500000000006 7.699999999999999 0.25 0 0 -0.0</pose>
+        </include>
+
+        <include>
+            <name>model_293</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>14.462500000000006 7.699999999999999 0.25 0 0 -0.0</pose>
+        </include>
+
+        <include>
+            <name>model_294</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>15.462500000000006 7.699999999999999 0.25 0 0 -0.0</pose>
+        </include>
+
+        <include>
+            <name>model_295</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>16.462500000000006 7.699999999999999 0.25 0 0 -0.0</pose>
+        </include>
+
+        <include>
+            <name>model_296</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>17.462500000000006 7.699999999999999 0.25 0 0 -0.0</pose>
+        </include>
+
+        <include>
+            <name>model_297</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>20.25 0.5249999999999986 0.25 0 0 1.5707963267948966</pose>
+        </include>
+
+        <include>
+            <name>model_298</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>20.25 -0.4750000000000014 0.25 0 0 1.5707963267948966</pose>
+        </include>
+
+        <include>
+            <name>model_299</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>20.25 -1.4750000000000014 0.25 0 0 1.5707963267948966</pose>
+        </include>
+
+        <include>
+            <name>model_300</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>20.25 -2.4750000000000014 0.25 0 0 1.5707963267948966</pose>
+        </include>
+
+        <include>
+            <name>model_301</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>20.25 -3.4750000000000014 0.25 0 0 1.5707963267948966</pose>
+        </include>
+
+        <include>
+            <name>model_302</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>20.25 5.5 0.25 0 0 1.5707963267948966</pose>
+        </include>
+
+        <include>
+            <name>model_303</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>20.25 4.5 0.25 0 0 1.5707963267948966</pose>
+        </include>
+
+        <include>
+            <name>model_304</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>20.25 3.5 0.25 0 0 1.5707963267948966</pose>
+        </include>
+
+        <include>
+            <name>model_305</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>20.25 2.5 0.25 0 0 1.5707963267948966</pose>
+        </include>
+
+        <include>
+            <name>model_306</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>20.25 1.5 0.25 0 0 1.5707963267948966</pose>
+        </include>
+
+        <include>
+            <name>model_307</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>20.25 8.5 0.25 0 0 1.5707963267948966</pose>
+        </include>
+
+        <include>
+            <name>model_308</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>20.25 7.5 0.25 0 0 1.5707963267948966</pose>
+        </include>
+
+        <include>
+            <name>model_309</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>20.25 6.5 0.25 0 0 1.5707963267948966</pose>
+        </include>
+
+        <include>
+            <name>model_310</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>11.512500000000003 7.125 0.25 0 0 3.141592653589793</pose>
+        </include>
+
+        <include>
+            <name>model_311</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>-5.149999999999999 5.449999999999999 0.25 0 0 1.5707963267948966</pose>
+        </include>
+
+        <include>
+            <name>model_312</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>-5.149999999999999 6.424999999999999 0.25 0 0 1.5707963267948966</pose>
+        </include>
+
+        <include>
+            <name>model_313</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>-5.149999999999999 7.449999999999999 0.25 0 0 1.5707963267948966</pose>
+        </include>
+
+        <include>
+            <name>model_314</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>-16.95 7.699999999999999 0.25 0 0 -0.0</pose>
+        </include>
+
+        <include>
+            <name>model_315</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>-15.95 7.699999999999999 0.25 0 0 -0.0</pose>
+        </include>
+
+        <include>
+            <name>model_316</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>-14.95 7.699999999999999 0.25 0 0 -0.0</pose>
+        </include>
+
+        <include>
+            <name>model_317</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>-13.95 7.699999999999999 0.25 0 0 -0.0</pose>
+        </include>
+
+        <include>
+            <name>model_318</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>-12.95 7.699999999999999 0.25 0 0 -0.0</pose>
+        </include>
+
+        <include>
+            <name>model_319</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>-11.95 7.699999999999999 0.25 0 0 -0.0</pose>
+        </include>
+
+        <include>
+            <name>model_320</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>-10.95 7.699999999999999 0.25 0 0 -0.0</pose>
+        </include>
+
+        <include>
+            <name>model_321</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>-9.95 7.699999999999999 0.25 0 0 -0.0</pose>
+        </include>
+
+        <include>
+            <name>model_322</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>-8.95 7.699999999999999 0.25 0 0 -0.0</pose>
+        </include>
+
+        <include>
+            <name>model_323</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>-7.949999999999999 7.699999999999999 0.25 0 0 -0.0</pose>
+        </include>
+
+        <include>
+            <name>model_324</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>-6.949999999999999 7.699999999999999 0.25 0 0 -0.0</pose>
+        </include>
+
+        <include>
+            <name>model_325</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>-5.924999999999997 7.699999999999999 0.25 0 0 -0.0</pose>
+        </include>
+
+        <include>
+            <name>model_326</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>-1.9375 5.475 0.25 0 0 1.5707963267948966</pose>
+        </include>
+
+        <include>
+            <name>model_327</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>-1.9375 6.449999999999999 0.25 0 0 1.5707963267948966</pose>
+        </include>
+
+        <include>
+            <name>model_328</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>-1.9375 7.475 0.25 0 0 1.5707963267948966</pose>
+        </include>
+
+        <include>
+            <name>model_329</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>3.8625000000000007 5.225 0.25 0 0 3.141592653589793</pose>
+        </include>
+
+        <include>
+            <name>model_330</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>2.8625000000000007 5.225 0.25 0 0 3.141592653589793</pose>
+        </include>
+
+        <include>
+            <name>model_331</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>1.8625000000000007 5.225 0.25 0 0 3.141592653589793</pose>
+        </include>
+
+        <include>
+            <name>model_332</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>0.8625000000000007 5.225 0.25 0 0 3.141592653589793</pose>
+        </include>
+
+        <include>
+            <name>model_333</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>-0.1374999999999993 5.225 0.25 0 0 3.141592653589793</pose>
+        </include>
+
+        <include>
+            <name>model_334</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>-1.1374999999999993 5.225 0.25 0 0 3.141592653589793</pose>
+        </include>
+
+        <include>
+            <name>model_335</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>5.862500000000001 5.225 0.25 0 0 3.141592653589793</pose>
+        </include>
+
+        <include>
+            <name>model_336</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>4.862500000000001 5.225 0.25 0 0 3.141592653589793</pose>
+        </include>
+
+        <include>
+            <name>model_337</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>6.625 5.475 0.25 0 0 1.5707963267948966</pose>
+        </include>
+
+        <include>
+            <name>model_338</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>6.625 6.449999999999999 0.25 0 0 1.5707963267948966</pose>
+        </include>
+
+        <include>
+            <name>model_339</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>6.625 7.475 0.25 0 0 1.5707963267948966</pose>
+        </include>
+
+        <include>
+            <name>model_340</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>-1.1624999999999979 7.725 0.25 0 0 -0.0</pose>
+        </include>
+
+        <include>
+            <name>model_341</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>-0.16249999999999787 7.725 0.25 0 0 -0.0</pose>
+        </include>
+
+        <include>
+            <name>model_342</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>0.8375000000000021 7.725 0.25 0 0 -0.0</pose>
+        </include>
+
+        <include>
+            <name>model_343</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>1.8375000000000021 7.725 0.25 0 0 -0.0</pose>
+        </include>
+
+        <include>
+            <name>model_344</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>2.837500000000002 7.725 0.25 0 0 -0.0</pose>
+        </include>
+
+        <include>
+            <name>model_345</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>3.837500000000002 7.725 0.25 0 0 -0.0</pose>
+        </include>
+
+        <include>
+            <name>model_346</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>4.837500000000002 7.725 0.25 0 0 -0.0</pose>
+        </include>
+
+        <include>
+            <name>model_347</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>5.837500000000002 7.725 0.25 0 0 -0.0</pose>
+        </include>
+
+        <include>
+            <name>model_348</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>-5.174999999999997 2.4749999999999996 0.25 0 0 1.5707963267948966</pose>
+        </include>
+
+        <include>
+            <name>model_349</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>-5.174999999999997 1.4499999999999993 0.25 0 0 1.5707963267948966</pose>
+        </include>
+
+        <include>
+            <name>model_350</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>-5.199999999999999 0.625 0.25 0 0 3.141592653589793</pose>
+        </include>
+
+        <include>
+            <name>model_351</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>-1.6999999999999993 2.4749999999999996 0.25 0 0 1.5707963267948966</pose>
+        </include>
+
+        <include>
+            <name>model_352</name>
+            <uri>../models/straw_bale/model.sdf</uri>
+            <pose>-1.6999999999999993 1.4250000000000007 0.25 0 0 1.5707963267948966</pose>
+        </include>
+  </world>
+</sdf>

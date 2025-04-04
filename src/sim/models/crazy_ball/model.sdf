@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<sdf version="1.6">
+    <model name="crazy_ball">
+        <pose>-19 -8 0.11 0 0 0</pose>
+        <static>false</static>
+        <link name="ball_link">
+            <inertial auto="true" />
+            <collision name="collision">
+                <density>1240.0</density>
+                <geometry>
+                    <sphere>
+                        <radius>0.11</radius>
+                    </sphere>
+                </geometry>
+            </collision>
+            <visual name="visual">
+                <geometry>
+                    <sphere>
+                        <radius>0.11</radius>
+                    </sphere>
+                </geometry>
+                <material>
+                    <script>
+                        <uri>file://media/materials/scripts/gazebo.material</uri>
+                        <name>Gazebo/Orange</name>
+                    </script>
+                </material>
+            </visual>
+        </link>
+        <plugin
+            filename="libsim-crazy-ball-plugin.so"
+            name="gz::sim::systems::CrazyBallPlugin">
+        </plugin>
+    </model>
+</sdf>

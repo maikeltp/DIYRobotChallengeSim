@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<sdf version="1.6">
+  <model name="hoop">
+    <static>true</static>
+    <link name="hoop_link">
+      <visual name="body_visual">
+      	<geometry>
+          <mesh><uri>meshes/hoop.dae</uri></mesh>
+        </geometry>
+      </visual>
+      <collision name="body_collision">
+      	<geometry>
+          <mesh><uri>meshes/hoop.dae</uri></mesh>
+        </geometry>
+      </collision>
+    </link>
+  </model>
+</sdf>

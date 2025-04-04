@@ -1,0 +1,36 @@
+# .pre-commit-config.yaml
+repos:
+-   repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.4.0
+    hooks:
+    -   id: trailing-whitespace
+        stages: [pre-commit]
+    -   id: end-of-file-fixer
+        stages: [pre-commit]
+    -   id: check-yaml
+        stages: [pre-commit]
+    -   id: check-added-large-files
+        stages: [pre-commit]
+        args: ['--maxkb=51200']  # 50MB
+
+-   repo: https://github.com/pycqa/isort
+    rev: 5.12.0
+    hooks:
+    -   id: isort
+        stages: [pre-commit]
+        additional_dependencies: [toml]
+
+-   repo: https://github.com/psf/black
+    rev: 23.3.0
+    hooks:
+    -   id: black
+        stages: [pre-commit]
+
+-   repo: local
+    hooks:
+    -   id: clang-format
+        name: clang-format
+        entry: clang-format -i
+        language: system
+        files: \.(cpp|h|hpp)$
+        stages: [pre-commit]
