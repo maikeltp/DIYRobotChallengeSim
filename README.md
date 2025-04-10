@@ -1,4 +1,4 @@
-# DIYRobotChallengeSim
+# DIY Robot Challenge Simulator
 This repository contains the code for a simulator that can be used on the DIY robot challenge.
 
 ## Environment Setup
