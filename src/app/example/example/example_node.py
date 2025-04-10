@@ -40,11 +40,11 @@ class ExampleNode(Node):
         # Process LiDAR data to find distance to the obstacle in the front
         front_obstacle_distance = self.process_lidar_data(msg)
         
-        if front_obstacle_distance <= TARGET_DISTANCE:
+        if front_obstacle_distance is None or front_obstacle_distance > TARGET_DISTANCE:
+            self.move()
+        else:
             self.get_logger().warn(f'Front obstacle at less than {TARGET_DISTANCE} m')
             self.stop_vehicle()
-        else:
-            self.move()
             
     def process_lidar_data(self, cloud_msg):
         """
