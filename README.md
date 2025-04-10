@@ -35,3 +35,29 @@ This setup will:
 
 ## Running the Simulation
 See [src/sim/README.md](src/sim/README.md) for instructions on running the simulation.
+
+
+## Quick start
+Start docker container
+```bash
+cd <repo-root>/docker
+./start.sh
+```
+Next steps are inside the docker container
+
+Build project
+```bash
+source /opt/ros/jazzy/setup.bash
+colcon build
+source install.bash
+```
+
+Launch simulator
+```bash
+ros2 launch sim load_sim.launch.py
+```
+
+Launch app nodes, for example:
+```bash
+ros2 launch example example.launch.py
+```

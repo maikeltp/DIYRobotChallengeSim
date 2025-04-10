@@ -53,7 +53,7 @@ chmod +x build.sh start.sh
 ```
 
 4. Start the development environment:
-Note: make sure to update the line `-v $HOME/autonomous-race-car:/home/devuser/ros2_ws \`  with the path where you cloned th repository.
+Note: make sure to update the line `-v $HOME/DIYRobotChanllegeSim:/home/devuser/ros2_ws \`  with the path where you cloned th repository.
 ```bash
 ./start.sh
 ```

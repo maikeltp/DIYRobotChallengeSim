@@ -161,17 +161,6 @@ class ExampleNode(Node):
     
     def stop_vehicle(self):
         """Stop the vehicle"""
-        # Create and publish Ackermann stop command
-        drive_msg = AckermannDriveStamped()
-        drive_msg.header.stamp = self.get_clock().now().to_msg()
-        drive_msg.header.frame_id = "base_link"
-        drive_msg.drive.steering_angle = 0.0
-        drive_msg.drive.steering_angle_velocity = 0.0
-        drive_msg.drive.speed = 0.0
-        drive_msg.drive.acceleration = 0.0
-        drive_msg.drive.jerk = 0.0
-        
-        self.drive_publisher.publish(drive_msg)
         
         # Create and publish Twist stop command
         twist_msg = Twist()
